@@ -419,7 +419,7 @@
         "type": "function",
         "z": "5f562f66.a301e",
         "name": "Get Signal Quality",
-        "func": "var info = msg.payload.split('\\n')[6];\nvar linkStartIndex = info.indexOf('Link Quality=');\nvar linkStopIndex = info.indexOf('/70');\nvar linkQuality = Number(info.substring(linkStartIndex + 13, linkStopIndex));\nvar levelStartIndex = info.indexOf('level=') + 6;\nvar levelStopIndex = info.indexOf('dBm') - 1;\nvar signalLevel = Number(info.substring(levelStartIndex, levelStopIndex));\nvar val = {linkQuality : linkQuality, signalLevel: signalLevel};\nflow.set('linkQuality',linkQuality);\nflow.set('signalLevel', signalLevel);\nreturn {topic :'test',payload : val};",
+        "func": "var info = msg.payload;\nvar linkStartIndex  = info.indexOf('Link Quality=');\nvar levelStartIndex = info.indexOf('Signal level=');\nvar linkStopIndex   = info.indexOf('/70');\nvar levelStopIndex   = info.lastIndexOf('dBm');\nvar linkQuality = Number(info.substring(linkStartIndex + 13, linkStopIndex));\nvar signalLevel =  Number(info.substring(levelStartIndex + 13, levelStopIndex - 1));\nvar ssid = info.substring(info.indexOf('ESSID') + 7);\nssid = ssid.substring(0,ssid.indexOf('\"'));\nvar val = {linkQuality : linkQuality, signalLevel: signalLevel, ssid:ssid};\nflow.set('linkQuality',linkQuality);\nflow.set('signalLevel', signalLevel);\nflow.set('ssid', ssid);\nreturn {topic :'test',payload : val};",
         "outputs": 1,
         "noerr": 0,
         "x": 460,
