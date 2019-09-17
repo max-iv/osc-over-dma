@@ -96,21 +96,6 @@
         }
     },
     {
-        "id": "21ff842d.62f36c",
-        "type": "serial-port",
-        "z": "",
-        "serialport": "/dev/ttyS0",
-        "serialbaud": "115200",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "newline": "28",
-        "bin": "bin",
-        "out": "count",
-        "addchar": true,
-        "responsetimeout": "10000"
-    },
-    {
         "id": "79250bf3.365cc4",
         "type": "mqtt-broker",
         "z": "",
@@ -133,18 +118,93 @@
         "willPayload": ""
     },
     {
-        "id": "ea743ee6.d8b55",
-        "type": "serial in",
-        "z": "5f562f66.a301e",
-        "name": "Teensy",
-        "serial": "21ff842d.62f36c",
-        "x": 70,
-        "y": 280,
-        "wires": [
-            [
-                "d5761f6c.c46e6"
-            ]
-        ]
+        "id": "f82f8aa3.9d5aa8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Setup Oscillation Overthruster",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 3,
+                "gy": 3,
+                "cx": 3,
+                "cy": 3,
+                "px": 0,
+                "py": 0
+            }
+        }
     },
     {
         "id": "93049b70.2dc5c8",
@@ -155,18 +215,8 @@
         "qos": "0",
         "retain": "false",
         "broker": "79250bf3.365cc4",
-        "x": 890,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "3f988ea4.7ee392",
-        "type": "serial out",
-        "z": "5f562f66.a301e",
-        "name": "Teensy",
-        "serial": "21ff842d.62f36c",
-        "x": 1120,
-        "y": 120,
+        "x": 790,
+        "y": 540,
         "wires": []
     },
     {
@@ -198,7 +248,6 @@
         "y": 40,
         "wires": [
             [
-                "f3f3f15.081c31",
                 "5902d0c0.241a6"
             ]
         ]
@@ -213,7 +262,7 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 980,
+        "x": 440,
         "y": 40,
         "wires": [
             []
@@ -223,36 +272,14 @@
         "id": "f3f3f15.081c31",
         "type": "function",
         "z": "5f562f66.a301e",
-        "name": "createSettings",
-        "func": "function getAttrObject(device, propName, attrName)\n{\n    var props = device[propName];\n    var attr = props.find(attr => attr.attr === attrName);\n    return attr;\n}\nvar echoSettings = 0;\nvar ledState = 0;\nvar ledValue = 0;\nvar ledPeriod = 0;\nvar ultraAlarmDistance = 0;\n\nvar echoSettingsMask = 0;\nvar ledStateMask = 0;\nvar ledValueMask = 0;\nvar ledPeriodMask = 0;\nvar ultraAlarmDistanceMask = 0;\nif (msg.topic == 'echoSettings')\n{\n    echoSettings = msg.payload;\n    echoSettingsMask = 1;\n}\nelse\n{\n    var device = msg.payload;\n    ledState = getAttrObject(device, 'settings', 'ledState').value;\n    ledValue = getAttrObject(device, 'settings', 'ledValue').value;\n    ledPeriod = getAttrObject(device, 'settings', 'ledPeriod').value;\n    ultraAlarmDistance = getAttrObject(device, 'settings', 'ultraAlarm').value;\n    var ultraDist = getAttrObject(device, 'readings', 'ultraDist');\n    ultraDist.alarm.limits.low = ultraAlarmDistance;\n    ledStateMask = 1;\n    ledValueMask = 1;\n    ledPeriodMask = 1;\n    ultraAlarmDistanceMask = 1;\n    for (var ii = 0; ii < msg.payload.settings.length; ++ii)\n    {\n        if (msg.payload.settings[ii].type == 'scalar')\n        {\n            msg.payload.settings[ii].alarm.value = 0;\n            if (!isNaN(msg.payload.settings[ii].value))\n            {\n                if (msg.payload.settings[ii].value < msg.payload.settings[ii].alarm.limits.low)  msg.payload.settings[ii].alarm.value = 1;\n                if (msg.payload.settings[ii].value < msg.payload.settings[ii].alarm.limits.lolo) msg.payload.settings[ii].alarm.value = 3;\n                if (msg.payload.settings[ii].value > msg.payload.settings[ii].alarm.limits.high) msg.payload.settings[ii].alarm.value = 2;\n                if (msg.payload.settings[ii].value > msg.payload.settings[ii].alarm.limits.hihi) msg.payload.settings[ii].alarm.value = 4;\n            }\n        }\n    }\n\n    flow.set('device', msg.payload);    \n}\n\n\nvar buffer = new ArrayBuffer(40);\nvar settingsView = new DataView(buffer);\nsettingsView.setInt32(0,echoSettingsMask, true);\nsettingsView.setInt32(4,ledStateMask, true);\nsettingsView.setInt32(8,ledValueMask, true);\nsettingsView.setInt32(12,ledPeriodMask, true);\nsettingsView.setInt32(16,ultraAlarmDistanceMask, true);\n\nsettingsView.setInt32(20,echoSettings, true);\nsettingsView.setInt32(24,ledState, true);\nsettingsView.setInt32(28,ledValue, true);\nsettingsView.setInt32(32,ledPeriod, true);\nsettingsView.setInt32(36,ultraAlarmDistance, true);\n\nreturn {topic:'settings',payload:Buffer.from(buffer)};",
+        "name": "Check Settings alarms",
+        "func": "function getAttrObject(device, propName, attrName)\n{\n    var props = device[propName];\n    var attr = props.find(attr => attr.attr === attrName);\n    return attr;\n}\nvar device = msg.payload;\nfor (var ii = 0; ii < msg.payload.settings.length; ++ii)\n{\n    if (msg.payload.settings[ii].type == 'scalar')\n    {\n        msg.payload.settings[ii].alarm.value = 0;\n        if (!isNaN(msg.payload.settings[ii].value))\n        {\n            if (msg.payload.settings[ii].value < msg.payload.settings[ii].alarm.limits.low)  msg.payload.settings[ii].alarm.value = 1;\n            if (msg.payload.settings[ii].value < msg.payload.settings[ii].alarm.limits.lolo) msg.payload.settings[ii].alarm.value = 3;\n            if (msg.payload.settings[ii].value > msg.payload.settings[ii].alarm.limits.high) msg.payload.settings[ii].alarm.value = 2;\n            if (msg.payload.settings[ii].value > msg.payload.settings[ii].alarm.limits.hihi) msg.payload.settings[ii].alarm.value = 4;\n        }\n    }\n}\nflow.set('device', msg.payload);\n\n\nreturn {topic:'settings',payload:device};",
         "outputs": 1,
         "noerr": 0,
-        "x": 960,
-        "y": 120,
+        "x": 980,
+        "y": 100,
         "wires": [
-            [
-                "3f988ea4.7ee392"
-            ]
-        ]
-    },
-    {
-        "id": "302aa037.053d1",
-        "type": "inject",
-        "z": "5f562f66.a301e",
-        "name": "",
-        "topic": "echoSettings",
-        "payload": "1",
-        "payloadType": "num",
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "x": 120,
-        "y": 120,
-        "wires": [
-            [
-                "f3f3f15.081c31"
-            ]
+            []
         ]
     },
     {
@@ -268,7 +295,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 140,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "163af492.5e952b"
@@ -286,7 +313,7 @@
         "sendError": false,
         "encoding": "none",
         "x": 360,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "53c95857.5f3d68"
@@ -302,7 +329,7 @@
         "action": "",
         "pretty": false,
         "x": 530,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "30f384ea.cf21fc"
@@ -318,26 +345,10 @@
         "outputs": 1,
         "noerr": 0,
         "x": 720,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "f3f3f15.081c31"
-            ]
-        ]
-    },
-    {
-        "id": "d5761f6c.c46e6",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Parse Reading Byte Array",
-        "func": "var ib;\n\nvar photoDetValueView       = new DataView(new ArrayBuffer(4));\nvar ultraDistanceView       = new DataView(new ArrayBuffer(4));\nvar ultraAlarmDistanceView  = new DataView(new ArrayBuffer(4));\nvar tempAvgView             = new DataView(new ArrayBuffer(4));\nvar ledStateView            = new DataView(new ArrayBuffer(4));\nvar ledValueView            = new DataView(new ArrayBuffer(4));\nvar ledPeriodView           = new DataView(new ArrayBuffer(4));\n\nfor (ib = 0; ib < 4; ++ib)      photoDetValueView.setUint8(ib, msg.payload[0 * 4 + 3 - ib]);\nfor (ib = 0; ib < 4; ++ib)      ultraDistanceView.setUint8(ib, msg.payload[1 * 4 + 3 - ib]);\nfor (ib = 0; ib < 4; ++ib) ultraAlarmDistanceView.setUint8(ib, msg.payload[2 * 4 + 3 - ib]);\nfor (ib = 0; ib < 4; ++ib)            tempAvgView.setUint8(ib, msg.payload[3 * 4 + 3 - ib]);\nfor (ib = 0; ib < 4; ++ib)           ledStateView.setUint8(ib, msg.payload[4 * 4 + 3 - ib]);\nfor (ib = 0; ib < 4; ++ib)           ledValueView.setUint8(ib, msg.payload[5 * 4 + 3 - ib]);\nfor (ib = 0; ib < 4; ++ib)          ledPeriodView.setUint8(ib, msg.payload[6 * 4 + 3 - ib]);\n\nvar device = flow.get('device');\ndevice.readings[0].value = ledStateView.getInt32(0);\ndevice.readings[1].value = photoDetValueView.getInt32(0);\ndevice.readings[2].value = Math.round(100.0 * tempAvgView.getFloat32(0)) / 100.0;\ndevice.readings[3].value = ultraDistanceView.getInt32(0);\ndevice.readings[4].value = flow.get('linkQuality');\ndevice.readings[5].value = flow.get('signalLevel');\n\nreturn {topic : 'reading', payload : device};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 250,
-        "y": 280,
-        "wires": [
-            [
-                "fafe8611.1f12e8"
             ]
         ]
     },
@@ -349,27 +360,11 @@
         "func": "for (var ii = 0; ii < msg.payload.readings.length; ++ii)\n{\n    if (msg.payload.readings[ii].type == 'scalar')\n    {\n        msg.payload.readings[ii].alarm.value = 0;\n        if (!isNaN(msg.payload.readings[ii].value))\n        {\n            if (msg.payload.readings[ii].value < msg.payload.readings[ii].alarm.limits.low)  msg.payload.readings[ii].alarm.value = 1;\n            if (msg.payload.readings[ii].value < msg.payload.readings[ii].alarm.limits.lolo) msg.payload.readings[ii].alarm.value = 3;\n            if (msg.payload.readings[ii].value > msg.payload.readings[ii].alarm.limits.high) msg.payload.readings[ii].alarm.value = 2;\n            if (msg.payload.readings[ii].value > msg.payload.readings[ii].alarm.limits.hihi) msg.payload.readings[ii].alarm.value = 4;\n        }\n    }\n}\nflow.set('device', msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 680,
-        "y": 280,
+        "x": 580,
+        "y": 540,
         "wires": [
             [
                 "93049b70.2dc5c8"
-            ]
-        ]
-    },
-    {
-        "id": "fafe8611.1f12e8",
-        "type": "function",
-        "z": "5f562f66.a301e",
-        "name": "Fake Vector Data",
-        "func": "var x = [];\nvar y = [];\nvar npts = 51;\nvar harm = msg.payload.settings[4].value;\nvar deltaPhi = msg.payload.settings[5].value;\nvar phi = context.get('phi');\nif (phi == undefined) phi = -deltaPhi;\nphi = phi + deltaPhi;\ncontext.set('phi', phi);\nfor (var ii = 0; ii < npts; ++ii)\n{\n   x[ii] = ii * 360.0 / (npts - 1);\n   y[ii] = Math.round( 1000 * Math.cos((x[ii] * harm + phi)  * Math.PI / 180.0)) / 1000;\n}\nmsg.payload.readings[6].value[0] = x;\nmsg.payload.readings[6].value[1] = y;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 470,
-        "y": 280,
-        "wires": [
-            [
-                "cd04ce51.35497"
             ]
         ]
     },
@@ -385,7 +380,7 @@
         "oldrc": false,
         "name": "",
         "x": 280,
-        "y": 360,
+        "y": 160,
         "wires": [
             [
                 "afd71a05.ebd4e8"
@@ -407,7 +402,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 360,
+        "y": 160,
         "wires": [
             [
                 "f69c600b.9542"
@@ -423,9 +418,360 @@
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 360,
+        "y": 160,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "dd1a96c6.43e088",
+        "type": "tcp out",
+        "z": "5f562f66.a301e",
+        "host": "",
+        "port": "5025",
+        "beserver": "reply",
+        "base64": false,
+        "end": false,
+        "name": "Send To Scope",
+        "x": 440,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "cf62bf6b.2b7b2",
+        "type": "tcp in",
+        "z": "5f562f66.a301e",
+        "name": "Scope",
+        "server": "client",
+        "host": "192.168.10.10",
+        "port": "5025",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "\\n",
+        "topic": "info",
+        "base64": false,
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "6dec5de6.a80ee4",
+                "29f0997e.472f36"
+            ]
+        ]
+    },
+    {
+        "id": "656b8cee.c1ed04",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "GetData",
+        "func": "if (flow.get('sendingDataSettings')) return null;\nif (flow.get('waitingForData')) return null;\nmsg.payload = 'SING;*OPC?\\n';\nflow.set('waitingForData',true);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 600,
+        "wires": [
+            [
+                "dd1a96c6.43e088"
+            ]
+        ]
+    },
+    {
+        "id": "539f73f3.d88b5c",
+        "type": "inject",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "x": 130,
+        "y": 600,
+        "wires": [
+            [
+                "656b8cee.c1ed04"
+            ]
+        ]
+    },
+    {
+        "id": "889c1617.13fbc8",
+        "type": "inject",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "x": 130,
+        "y": 700,
+        "wires": [
+            [
+                "39181e93.626f82"
+            ]
+        ]
+    },
+    {
+        "id": "39181e93.626f82",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "setupData",
+        "func": "setupData = {\n   \"chan1Scal\":\"0.05\",\n   \"chan2Scal\":\"0.010\",\n   \"chan3Scal\":\"0.020\",\n   \"chan4Scal\":\"0.050\",\n   \"chan1Pos\":\"0\",\n   \"chan2Pos\":\"0\",\n   \"chan3Pos\":\"0\",\n   \"chan4Pos\":\"0\",\n   \"chan1Pol\":\"NORM\",\n   \"chan2Pol\":\"NORM\",\n   \"chan3Pol\":\"NORM\",\n   \"chan4Pol\":\"NORM\",\n   \"trigLevel\":\"2\",\n   \"trigSlope\":\"NEG\",\n   \"trigMode\":\"NORM\",\n   \"timeScale\":\"200\",\n   \"timeRef\":\"0\",\n   \"rfFreq\":99.500,\n   \"iptStart\":370,\n   \"bunchStart\":10,\n   \"bunchStop\":165\n}\nflow.set('setupData',setupData);\nreturn {topic:'setupData',payload:setupData};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 700,
+        "wires": [
+            [
+                "b77b26ed.9ddc88"
+            ]
+        ]
+    },
+    {
+        "id": "b77b26ed.9ddc88",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Setup",
+        "func": "var setupData = flow.get('setupData');\nmsg.payload = '*RST\\n';\nmsg.payload = msg.payload + 'CHAN1:STAT ON;\\n';\nmsg.payload = msg.payload + 'CHAN1:POS ' + setupData.chan1Pos + ';\\n';\nmsg.payload = msg.payload + 'CHAN1:COUP DC;\\n';\nmsg.payload = msg.payload + 'CHAN1:SCAL ' + setupData.chan1Scal + ';\\n';\nmsg.payload = msg.payload + 'CHAN1:POL ' + setupData.chan1Pol + ';\\n';\nmsg.payload = msg.payload + 'CHAN2:STAT ON;\\n';\nmsg.payload = msg.payload + 'CHAN2:POS ' + setupData.chan2Pos + ';\\n';\nmsg.payload = msg.payload + 'CHAN2:COUP DC;\\n';\nmsg.payload = msg.payload + 'CHAN2:SCAL ' + setupData.chan2Scal + ';\\n';\nmsg.payload = msg.payload + 'CHAN3:STAT ON;\\n';\nmsg.payload = msg.payload + 'CHAN3:POS ' + setupData.chan3Pos + ';\\n';\nmsg.payload = msg.payload + 'CHAN3:COUP DCLimit;\\n';\nmsg.payload = msg.payload + 'CHAN3:SCAL ' + setupData.chan3Scal + ';\\n';\nmsg.payload = msg.payload + 'CHAN3:POL ' + setupData.chan3Pol + ';\\n';\nmsg.payload = msg.payload + 'CHAN3:BAND B20;\\n';\nmsg.payload = msg.payload + 'CHAN4:STAT ON;\\n';\nmsg.payload = msg.payload + 'CHAN4:POS ' + setupData.chan4Pos + ';\\n';\nmsg.payload = msg.payload + 'CHAN4:COUP DC;\\n';\n//msg.payload = msg.payload + 'CHAN4:COUP DCLimit;\\n';\nmsg.payload = msg.payload + 'CHAN4:SCAL ' + setupData.chan4Scal + ';\\n';\nmsg.payload = msg.payload + 'CHAN4:POL ' + setupData.chan4Pol + ';\\n';\n//msg.payload = msg.payload + 'CHAN4:BAND B20;\\n';\nmsg.payload = msg.payload + 'TRIG:A:SOUR EXT;\\n';\nmsg.payload = msg.payload + 'TRIG:EXT:COUP DC;\\n';\nmsg.payload = msg.payload + 'TRIG:A:EDGE:SLOP ' + setupData.trigSlope + ';\\n';\nmsg.payload = msg.payload + 'TRIG:A:MODE NORM\\n';\nmsg.payload = msg.payload + 'TRIG:A:LEV4 ' + setupData.trigLevel + ';\\n';\nmsg.payload = msg.payload + 'TIM:SCAL ' + setupData.timeScale + 'e-9;\\n';\nmsg.payload = msg.payload + 'TIM:REF ' + setupData.timeRef + ';\\n';\nmsg.payload = msg.payload + 'ACQ:WRAT MSAM;\\n';\n//msg.payload = msg.payload + 'FORM UINT,8\\n';\nmsg.payload = msg.payload + 'FORM ASC;\\n';\nmsg.payload = msg.payload + 'CHAN:DATA:POIN DMAX;\\n';\nflow.set('sendingDataSettings', true);\nflow.set('waitingForData',false);\nvar scopeLimits = \n{\n   'npts': -1,\n   'xstart': -10000.0, \n   'xstop': -10000.0, \n}\nflow.set('scopeLimits', scopeLimits);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 700,
+        "wires": [
+            [
+                "205e2b5d.5a4a44",
+                "b7167640.af4a58"
+            ]
+        ]
+    },
+    {
+        "id": "205e2b5d.5a4a44",
+        "type": "tcp out",
+        "z": "5f562f66.a301e",
+        "host": "",
+        "port": "5025",
+        "beserver": "reply",
+        "base64": false,
+        "end": false,
+        "name": "Send To Scope",
+        "x": 980,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "b7167640.af4a58",
+        "type": "delay",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "20",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 580,
+        "y": 660,
+        "wires": [
+            [
+                "b8060c2d.f465f"
+            ]
+        ]
+    },
+    {
+        "id": "29f0997e.472f36",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Read Yscale",
+        "func": "if (!flow.get('sendingDataSettings')) return null;\ninfo = msg.payload;\nvar scopeLimits = flow.get('scopeLimits')\nif (scopeLimits.npts < 0) \n{\n    var info1 = info.split(',');\n    scopeLimits.xstart = Number(info1[0]);\n    scopeLimits.xstop = Number(info1[1]);\n    scopeLimits.npts = Number(info1[2]);\n    flow.set('sendingDataSettings', false)\n    flow.set('scopeLimits', scopeLimits);\n}\nvar newMsg = \n{\n    'topic':'yscale',\n    'payload': scopeLimits\n}\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6dec5de6.a80ee4",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Get Trace Data",
+        "func": "if (!flow.get('waitingForData')) return [null, null, null, null];\nif (msg.payload.length == 1)\n{\n    var msg1 = {'topic':'getChan1','payload':'CHAN1:DATA?\\n'};\n    var msg2 = {'topic':'getChan2','payload':'CHAN2:DATA?\\n'};\n    var msg3 = {'topic':'getChan3','payload':'CHAN3:DATA?\\n'};\n    var msg4 = {'topic':'getChan4','payload':'CHAN4:DATA?\\n'};\n    context.set('itrace',1);\n    return [msg1, msg2, msg3, msg4, null];\n}\nelse\n{\n\n    if (context.get('itrace') == 1)\n    {\n        context.set('trace1',msg.payload);\n        context.set('itrace',2);\n        return [null, null, null, null, null];\n    }\n    \n    if (context.get('itrace') == 2)\n    {\n        context.set('trace2',msg.payload);\n        context.set('itrace',3);\n        return [null, null, null, null, null];\n    }\n\n    if (context.get('itrace') == 3)\n    {\n        context.set('trace3',msg.payload);\n        context.set('itrace',4);\n        return [null, null, null, null, null];\n    }\n\n    if (context.get('itrace') == 4)\n    {\n        var rfFreq = flow.get('setupData').rfFreq;\n        context.set('itrace',1);\n        context.set('trace4',msg.payload);\n        var scopeLimits = flow.get('scopeLimits');\n        var nptsRev = Math.round(scopeLimits.npts * 176.0e-6 / rfFreq / (scopeLimits.xstop - scopeLimits.xstart));\n        var istart0 = Math.round ((scopeLimits.npts - nptsRev) / 2);\n        istart0 = flow.get('setupData').iptStart;\n        var trace1String = context.get('trace1').split(',');\n        var trace2String = context.get('trace2').split(',');\n        var trace3String = context.get('trace3').split(',');\n        var trace4String = context.get('trace4').split(',');\n\n        var trace1 = [];\n        var trace2 = [];\n        var trace3 = [];\n        var trace4 = [];\n        var nptPerBunch = nptsRev / 176.0;\n        var twoPi = 2.0 *3.1415927;\n        \n        for (var ii = 0; ii < 176; ++ii) \n        {\n            var istart = Math.round(ii * nptPerBunch) + istart0;\n            var istop  = istart + Math.round(nptPerBunch);\n            trace1[ii] = 0.0;\n            trace2[ii] = 0.0;\n            trace3[ii] = 0.0;\n            trace4[ii] = 0.0;\n            for (var ipt = istart; ipt <= istop; ++ipt) \n            {\n                trace1[ii] = trace1[ii] + Number(trace1String[ipt]);\n                trace2[ii] = trace2[ii] + Number(trace2String[ipt]);\n                trace3[ii] = trace3[ii] + Number(trace3String[ipt]);\n                trace4[ii] = trace4[ii] + Number(trace4String[ipt]);\n            }\n            trace1[ii] = trace1[ii] / nptPerBunch;\n            trace2[ii] = trace2[ii] / nptPerBunch;\n            trace3[ii] = trace3[ii] / nptPerBunch;\n            trace4[ii] = trace4[ii] / nptPerBunch;\n        }\n        var msg5 = \n        {\n            'topic':'OscillationOverthruster/data/traces',\n            'payload':\n            {\n                'trace1'  :   trace1,\n                'trace2'  :   trace2,\n                'trace3'  :   trace3,\n                'trace4'  :   trace4\n            }\n        };\n        flow.set('waitingForData', false);\n        return [null, null, null, null, msg5];\n    }\n}\n",
+        "outputs": 5,
+        "noerr": 0,
+        "x": 280,
+        "y": 240,
+        "wires": [
+            [
+                "359bbce3.d91914"
+            ],
+            [
+                "9b4bd186.dced9"
+            ],
+            [
+                "cf8d2fd9.b23ac"
+            ],
+            [
+                "e83f5310.0a39e"
+            ],
+            [
+                "3d3de896.30a338"
+            ]
+        ]
+    },
+    {
+        "id": "359bbce3.d91914",
+        "type": "tcp out",
+        "z": "5f562f66.a301e",
+        "host": "",
+        "port": "5025",
+        "beserver": "reply",
+        "base64": false,
+        "end": false,
+        "name": "Send To Scope",
+        "x": 580,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "9b4bd186.dced9",
+        "type": "delay",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1.5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 550,
+        "y": 280,
+        "wires": [
+            [
+                "359bbce3.d91914"
+            ]
+        ]
+    },
+    {
+        "id": "b8060c2d.f465f",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "CHAN1:DATA:HEAD?",
+        "func": "return {'topic':'getChan1','payload':'CHAN1:DATA:HEAD?\\n'};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 660,
+        "wires": [
+            [
+                "205e2b5d.5a4a44"
+            ]
+        ]
+    },
+    {
+        "id": "cf8d2fd9.b23ac",
+        "type": "delay",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "359bbce3.d91914"
+            ]
+        ]
+    },
+    {
+        "id": "3d3de896.30a338",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Process Bunch Waveforms",
+        "func": "var rfFreq = flow.get('setupData').rfFreq;\nvar bunchStart = flow.get('setupData').bunchStart;\nvar bunchStop = flow.get('setupData').bunchStop;\nvar magn = [];\nvar phase = [];\n\nvar trace1 = msg.payload.trace1;\nvar trace2 = msg.payload.trace2;\nvar trace3 = msg.payload.trace3;\nvar trace4 = msg.payload.trace4;\n\nvar twoPi = 2.0 *3.1415927;\nvar avgMag = 0.0;\nvar bunchLengthScale = [];\nvar peakBeamCurrent = [];\nvar v5overV1 = 5.0; // for bunch length calibration)\n\nfor (var ii = 0; ii < 176; ++ii) \n{\n    phase[ii] = 0.0;\n    magn[ii] = Math.sqrt(trace1[ii] * trace1[ii] + trace2[ii] * trace2[ii]);\n    bunchLengthScale[ii] = 0.0;\n   \n    var v500 = -0.15674603 + Math.sqrt(0.15674603 * 0.15674603 -(-16.1 - trace4[ii] * 1000.0)/126);\n    var v100 =  1.24705882 - Math.sqrt(1.24705882 * 1.24705882 +(-3.16 - magn[ii] * 1000.0)/170);\n    if (v500 < 0.001) v500 = 0.001;\n    if (v100 < 0.001) v100 = 0.001;\n    if ((bunchStart <= ii) && (ii <= bunchStop))\n    {\n// added factor of two for 6 dB splitter\n// added another factor of 2 to match call 2018-10-09\n\n        phase[ii] = (1000000.0 / rfFreq) * Math.atan(2.0 * trace2[ii] /trace1[ii]) / (4.0 * 3.1415927);\n        bunchLengthScale[ii] = v5overV1 * v100 / v500;\n        if (bunchLengthScale[ii] < 1.0) bunchLengthScale[ii] = 1.0;\n        bunchLengthScale[ii] = Math.sqrt(Math.log(bunchLengthScale[ii]) / 24.0);\n        bunchLengthScale[ii] = 1000.0 * 1000.0 * 2.0 * bunchLengthScale[ii] /(rfFreq * twoPi * 1.414); //ps\n    }\n// cal'd on 2019-05-08 \n    magn[ii] = (1935.0 * magn[ii]  - 0.0) / 176.0;\n    avgMag = avgMag + magn[ii];\n}\nfor (var ii = 0; ii < bunchStart; ++ii) \n{\n    bunchLengthScale[ii] = bunchLengthScale[bunchStart];\n}\nfor (var ii = bunchStop; ii < 176; ++ii) \n{\n    bunchLengthScale[ii] = bunchLengthScale[bunchStop];\n}\nfor (var ii = 0; ii < 176; ++ii) \n{\n    peakBeamCurrent[ii] = 1000.0 * 1000.0 * magn[ii] / (rfFreq * bunchLengthScale[ii] * 2.506);\n\n}\navgMag = avgMag /176.0;\nvar newMsg = \n{\n    'topic'   : 'bunchWaveforms',\n    'payload' :\n    {\n        'trace1'          :   trace1,\n        'trace2'          :   trace2,\n        'trace3'          :   trace3,\n        'trace4'          :   trace4,\n        'magn'            :   magn,\n        'phase'           :   phase,\n        'avgMag'          :   avgMag,\n        'bunchLengthScale':   bunchLengthScale,\n        'peakBeamCurrent' :   peakBeamCurrent\n    }\n};\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 420,
+        "wires": [
+            [
+                "bf5cd69c.197428"
+            ]
+        ]
+    },
+    {
+        "id": "bf5cd69c.197428",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Process Differential Traces",
+        "func": "var difPhase = [];\nvar phaseHistory = [[],[],[]];\n\nvar twoPi = 2.0 *3.1415927;\n\nvar lastTrace = context.get('lastTrace');\nif (lastTrace == null)\n{\n    phaseHistory[0] = msg.payload.phase;\n    for (var itrace = 1; itrace < 3; ++itrace)\n    {\n        for (var ii = 0; ii < 176; ++ii)\n        {\n            phaseHistory[itrace][ii] = 0.0;\n        }\n    }\n    context.set('phaseHistory',phaseHistory);\n    context.set('lastTrace',0);\n    for (var ii = 0; ii < 176; ++ii)\n    {\n        difPhase[ii] = 0.0;\n    }\n}\nelse\n{\n    phaseHistory = context.get('phaseHistory');\n    var nextTrace = lastTrace + 1;\n    if (nextTrace > 2) nextTrace = 0;\n    phaseHistory[nextTrace] = msg.payload.phase;\n    context.set('phaseHistory',phaseHistory);\n    context.set ('lastTrace',nextTrace);\n    for (var ii = 0; ii < 176; ++ii)\n    {\n        difPhase[ii] = phaseHistory[nextTrace][ii] - phaseHistory[lastTrace][ii];\n    }\n}\nvar newMsg = \n{\n    'topic'   : 'bunchWaveforms',\n    'payload' :\n    {\n        'trace1'            :   msg.payload.trace1,\n        'trace2'            :   msg.payload.trace2,\n        'trace3'            :   msg.payload.trace3,\n        'trace4'            :   msg.payload.trace4,\n        'magn'              :   msg.payload.magn,\n        'phase'             :   msg.payload.phase,\n        'avgMag'            :   msg.payload.avgMag,\n        'bunchLengthScale'  :   msg.payload.bunchLengthScale,\n        'peakBeamCurrent'   :   msg.payload.peakBeamCurrent,\n        'difPhase'          :   difPhase,\n\n    }\n};\nreturn newMsg\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 460,
+        "wires": [
+            [
+                "530679a3.7b06e8"
+            ]
+        ]
+    },
+    {
+        "id": "530679a3.7b06e8",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Process Modes",
+        "func": "function getAttrObject(device, propName, attrName)\n{\n    var props = device[propName];\n    var attr = props.find(attr => attr.attr === attrName);\n    return attr;\n}\n\nvar bunchStart = flow.get('setupData').bunchStart;\nvar bunchStop = flow.get('setupData').bunchStop;\nvar twoPi = 2.0 *3.1415927;\nvar modeM = [];\nvar magThreshold = 0.5 * msg.payload.avgMag;\nvar nbunches = bunchStop - bunchStart + 1.0;\nfor (var mode = 0; mode < 88; ++mode)\n{\n    var modeI = 0.0;\n    var modeQ = 0.0;\n    for (var bunch = bunchStart; bunch <= bunchStop; ++bunch)\n    {\n        modeI = modeI + Math.cos(twoPi * mode  * bunch / 176.0 ) * msg.payload.difPhase[bunch];\n        modeQ = modeQ + Math.sin(twoPi * mode  * bunch / 176.0 ) * msg.payload.difPhase[bunch];\n    }\n    modeI = modeI / nbunches;\n    modeQ = modeQ / nbunches;\n    modeM[mode] = Math.sqrt(modeI * modeI + modeQ * modeQ);\n}\n\nvar bunchCount = 0.0;\nvar beamCurrent = 0.0;\nvar avgPhase = 0.0;\nvar avgQ = 0.0;\nfor (var ii = 0; ii < 176; ++ii)\n{\n    beamCurrent = beamCurrent + msg.payload.magn[ii];\n    if (msg.payload.magn[ii] > magThreshold)\n    {\n        avgPhase = avgPhase + msg.payload.phase[ii];\n        bunchCount = bunchCount + 1;\n    }\n    avgQ = avgQ + msg.payload.trace3[ii];\n}\nif (bunchCount < 1.0) bunchCount = 1.0;\nbeamCurrent = Math.round(100.0 * beamCurrent) / 100.0;\navgPhase = Math.round(100.0 * avgPhase / bunchCount) / 100.0;\navgQ = avgQ / 176.0;\navgQ = Math.round(10000.0 * avgQ) / 10000.0;\n\nvar maxDipoleMode = -1\nvar maxDipoleModeAmp = 0.0;\nvar rmsModeAmp = 0.0;\nfor (var ii = 0; ii < 88; ++ii)\n{\n    rmsModeAmp = rmsModeAmp + modeM[ii] * modeM[ii];\n    if (modeM[ii] > maxDipoleModeAmp)\n    {\n        maxDipoleModeAmp = modeM[ii];\n        maxDipoleMode = ii;\n    }\n}\nmaxDipoleModeAmp = Math.round(100.0 * maxDipoleModeAmp) / 100.0;\nrmsModeAmp = Math.round(100.0 * Math.sqrt(rmsModeAmp) ) / 100.0;\nvar modeNumber = [];\nfor (var ii = 0; ii < 88; ++ii) modeNumber[ii] = ii;\nvar bunchNumber = [];\nfor (var ii = 0; ii < 176; ++ii) bunchNumber[ii] = ii;\ndevice = flow.get('device');\n\ngetAttrObject(device, 'readings', 'beamCurrent').value      =  beamCurrent;\ngetAttrObject(device, 'readings', 'maxDipoleMode').value    =  maxDipoleMode;\ngetAttrObject(device, 'readings', 'avgPhase').value         =  avgPhase;\ngetAttrObject(device, 'readings', 'maxDipoleModeAmp').value =  maxDipoleModeAmp;\ngetAttrObject(device, 'readings', 'rmsModeAmp').value       =  rmsModeAmp;\ngetAttrObject(device, 'readings', 'avgMag').value           =  msg.payload.avgMag;\ngetAttrObject(device, 'readings', 'phaseShiftQ').value      =  avgQ;\ngetAttrObject(device, 'readings', 'modeM').value            =  [modeNumber,modeM];\ngetAttrObject(device, 'readings', 'bunchCurrent').value     =  [bunchNumber,msg.payload.magn];\ngetAttrObject(device, 'readings', 'difPhase').value         =  [bunchNumber,msg.payload.difPhase];\ngetAttrObject(device, 'readings', 'phase').value            =  [bunchNumber,msg.payload.phase];\ngetAttrObject(device, 'readings', 'bunchLength').value      =  [bunchNumber,msg.payload.bunchLengthScale];\ngetAttrObject(device, 'readings', 'peakBunchCurrent').value =  [bunchNumber,msg.payload.peakBeamCurrent];\ngetAttrObject(device, 'readings', 'trace1').value =  [bunchNumber,msg.payload.trace1];\ngetAttrObject(device, 'readings', 'trace2').value =  [bunchNumber,msg.payload.trace2];\ngetAttrObject(device, 'readings', 'trace3').value =  [bunchNumber,msg.payload.trace3];\ngetAttrObject(device, 'readings', 'trace4').value =  [bunchNumber,msg.payload.trace4];\ngetAttrObject(device, 'readings', 'linkQuality').value =  flow.get('linkQuality');\ngetAttrObject(device, 'readings', 'signalLevel').value =  flow.get('signalLevel');\nflow.set('device', device);\nreturn {topic:'deviceReadings',payload:device};\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "cd04ce51.35497"
+            ]
+        ]
+    },
+    {
+        "id": "e83f5310.0a39e",
+        "type": "delay",
+        "z": "5f562f66.a301e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "4.5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "359bbce3.d91914"
+            ]
         ]
     }
 ]
