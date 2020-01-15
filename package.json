@@ -1,5 +1,5 @@
 {
-  "name": "teensy-pi0-device-message-adapter",
+  "name": "osc-over-device-message-adapter",
   "version": "1.0.0",
   "description": "",
   "main": "node_modules/node-red/red.js -s ./settings.js -u ./",
@@ -20,8 +20,7 @@
   },
   "homepage": "",
   "dependencies": {
-    "node-red": "^0.20.7",
-    "node-red-dashboard": "^2.9.8",
-    "node-red-node-serialport": "~0.6.8"
+    "node-red": "^1.0.3",
+    "node-red-dashboard": "^2.19.3"
   }
 }

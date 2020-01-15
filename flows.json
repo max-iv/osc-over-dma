@@ -99,8 +99,8 @@
         "id": "79250bf3.365cc4",
         "type": "mqtt-broker",
         "z": "",
-        "name": "MQTT Broker",
-        "broker": "$(MQTTSERVERIP)",
+        "name": "MQTT Broker 2",
+        "broker": "$(MQTTSERVERIP2)",
         "port": "1883",
         "clientid": "$(MQTTCLIENTID)",
         "usetls": false,
@@ -207,29 +207,51 @@
         }
     },
     {
+        "id": "a02777ed.d6b4e8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "MQTT Broker 1",
+        "broker": "$(MQTTSERVERIP1)",
+        "port": "1883",
+        "clientid": "$(MQTTCLIENTID)",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
         "id": "93049b70.2dc5c8",
         "type": "mqtt out",
         "z": "5f562f66.a301e",
-        "name": "Publish Readings",
+        "name": "Publish Readings 2",
         "topic": "$(MQTTPUBLISHTOPIC)",
         "qos": "0",
         "retain": "false",
         "broker": "79250bf3.365cc4",
-        "x": 790,
-        "y": 540,
+        "x": 870,
+        "y": 600,
         "wires": []
     },
     {
         "id": "8cda9011.eab33",
         "type": "mqtt in",
         "z": "5f562f66.a301e",
-        "name": "Subscribe Settings",
+        "name": "Subscribe Settings 2",
         "topic": "$(MQTTSUBSCRIBETOPIC)",
         "qos": "0",
         "datatype": "auto",
         "broker": "79250bf3.365cc4",
         "x": 110,
-        "y": 40,
+        "y": 100,
         "wires": [
             [
                 "dc36009e.fdeeb"
@@ -248,7 +270,7 @@
         "y": 40,
         "wires": [
             [
-                "5902d0c0.241a6"
+                "c4668e74.e4361"
             ]
         ]
     },
@@ -262,7 +284,7 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 440,
+        "x": 840,
         "y": 40,
         "wires": [
             [
@@ -279,7 +301,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 980,
-        "y": 100,
+        "y": 160,
         "wires": [
             []
         ]
@@ -297,7 +319,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 140,
-        "y": 100,
+        "y": 160,
         "wires": [
             [
                 "163af492.5e952b"
@@ -315,7 +337,7 @@
         "sendError": false,
         "encoding": "none",
         "x": 360,
-        "y": 100,
+        "y": 160,
         "wires": [
             [
                 "53c95857.5f3d68"
@@ -331,7 +353,7 @@
         "action": "",
         "pretty": false,
         "x": 530,
-        "y": 100,
+        "y": 160,
         "wires": [
             [
                 "30f384ea.cf21fc"
@@ -347,7 +369,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 720,
-        "y": 100,
+        "y": 160,
         "wires": [
             [
                 "f3f3f15.081c31"
@@ -363,9 +385,12 @@
         "outputs": 1,
         "noerr": 0,
         "x": 580,
-        "y": 540,
+        "y": 600,
         "wires": [
-            []
+            [
+                "93049b70.2dc5c8",
+                "67bf470f.ef29c8"
+            ]
         ]
     },
     {
@@ -380,7 +405,7 @@
         "oldrc": false,
         "name": "",
         "x": 280,
-        "y": 160,
+        "y": 220,
         "wires": [
             [
                 "afd71a05.ebd4e8"
@@ -402,7 +427,7 @@
         "once": true,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 160,
+        "y": 220,
         "wires": [
             [
                 "f69c600b.9542"
@@ -418,7 +443,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 160,
+        "y": 220,
         "wires": [
             []
         ]
@@ -434,7 +459,7 @@
         "end": false,
         "name": "Send To Scope",
         "x": 440,
-        "y": 600,
+        "y": 660,
         "wires": []
     },
     {
@@ -451,7 +476,7 @@
         "topic": "info",
         "base64": false,
         "x": 90,
-        "y": 240,
+        "y": 300,
         "wires": [
             [
                 "6dec5de6.a80ee4",
@@ -468,7 +493,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 280,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "dd1a96c6.43e088"
@@ -488,7 +513,7 @@
         "once": true,
         "onceDelay": "5",
         "x": 130,
-        "y": 600,
+        "y": 660,
         "wires": [
             [
                 "656b8cee.c1ed04"
@@ -508,7 +533,7 @@
         "once": true,
         "onceDelay": "1",
         "x": 130,
-        "y": 700,
+        "y": 760,
         "wires": [
             [
                 "39181e93.626f82"
@@ -524,7 +549,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 290,
-        "y": 700,
+        "y": 760,
         "wires": [
             [
                 "b77b26ed.9ddc88"
@@ -540,7 +565,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 430,
-        "y": 700,
+        "y": 760,
         "wires": [
             [
                 "205e2b5d.5a4a44",
@@ -559,7 +584,7 @@
         "end": false,
         "name": "Send To Scope",
         "x": 980,
-        "y": 700,
+        "y": 760,
         "wires": []
     },
     {
@@ -578,7 +603,7 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 580,
-        "y": 660,
+        "y": 720,
         "wires": [
             [
                 "b8060c2d.f465f"
@@ -594,7 +619,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 270,
-        "y": 300,
+        "y": 360,
         "wires": [
             []
         ]
@@ -608,7 +633,7 @@
         "outputs": 5,
         "noerr": 0,
         "x": 280,
-        "y": 240,
+        "y": 300,
         "wires": [
             [
                 "359bbce3.d91914"
@@ -638,7 +663,7 @@
         "end": false,
         "name": "Send To Scope",
         "x": 580,
-        "y": 220,
+        "y": 280,
         "wires": []
     },
     {
@@ -657,7 +682,7 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 550,
-        "y": 280,
+        "y": 340,
         "wires": [
             [
                 "359bbce3.d91914"
@@ -673,7 +698,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 760,
-        "y": 660,
+        "y": 720,
         "wires": [
             [
                 "205e2b5d.5a4a44"
@@ -696,7 +721,7 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 540,
-        "y": 320,
+        "y": 380,
         "wires": [
             [
                 "359bbce3.d91914"
@@ -712,7 +737,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 600,
-        "y": 420,
+        "y": 480,
         "wires": [
             [
                 "bf5cd69c.197428"
@@ -728,7 +753,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 600,
-        "y": 460,
+        "y": 520,
         "wires": [
             [
                 "530679a3.7b06e8"
@@ -744,7 +769,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 560,
-        "y": 500,
+        "y": 560,
         "wires": [
             [
                 "cd04ce51.35497"
@@ -767,10 +792,56 @@
         "randomUnits": "seconds",
         "drop": false,
         "x": 550,
-        "y": 360,
+        "y": 420,
         "wires": [
             [
                 "359bbce3.d91914"
+            ]
+        ]
+    },
+    {
+        "id": "67bf470f.ef29c8",
+        "type": "mqtt out",
+        "z": "5f562f66.a301e",
+        "name": "Publish Readings 1",
+        "topic": "$(MQTTPUBLISHTOPIC)",
+        "qos": "0",
+        "retain": "false",
+        "broker": "a02777ed.d6b4e8",
+        "x": 870,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ad85bb0c.86a888",
+        "type": "mqtt in",
+        "z": "5f562f66.a301e",
+        "name": "Subscribe Settings 1",
+        "topic": "$(MQTTSUBSCRIBETOPIC)",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "a02777ed.d6b4e8",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "dc36009e.fdeeb"
+            ]
+        ]
+    },
+    {
+        "id": "c4668e74.e4361",
+        "type": "function",
+        "z": "5f562f66.a301e",
+        "name": "Make Pretty",
+        "func": "var jsonPretty = JSON.stringify(msg.payload,null,2);\nreturn {topic: msg.payload, payload:jsonPretty};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 40,
+        "wires": [
+            [
+                "5902d0c0.241a6"
             ]
         ]
     }
