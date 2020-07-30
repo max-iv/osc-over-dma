@@ -1,10 +1,12 @@
-# blinky-lite-demo device-message-adapter
+# osc-over device-message-adapter
 ## need to add .env file with the following
-ARCHIVERTOPIC=archiver\/blinky-lite\/demo\/breadboard\/green\/<br/>
-MQTTCLIENTID=blinky-lite-demo-green-dma<br/>
-MQTTSERVERIP=blinky-lite-controlbox-01.local<br/>
-MQTTUSERNAME=blinky-lite-controlbox-01<br/>
-MQTTPASSWORD=blinky-lite<br/>
-NODEREDCONFIGSECRET=a-secret-key<br/>
+MQTTPUBLISHTOPIC1=maxiv\/osc-over\/r3\/reading</br>
+MQTTSUBSCRIBETOPIC1=maxiv\/osc-over\/r3\/setting</br>
+MQTTCLIENTID=osc-over-tray</br>
+MQTTSERVERIP1=maxiv-controlbox-01.maxiv.lu.se</br>
+MQTTUSERNAME1=xxxxx</br>
+MQTTPASSWORD1=xxxxx</br>
+NODEREDCONFIGSECRET=xxxx</br>
 <br/>
 with no CR after the last line
+
