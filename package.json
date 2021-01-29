@@ -21,6 +21,6 @@
   "homepage": "",
   "dependencies": {
     "node-red": "^1.0.3",
-    "node-red-dashboard": "^2.19.3"
+    "node-red-dashboard": "^2.26.2"
   }
 }
